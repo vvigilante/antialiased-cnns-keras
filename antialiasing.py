@@ -81,7 +81,7 @@ class BlurPool(Layer):
         #print("Shape out for %s: %s" %(self.name,str(s)))
         return tuple(s)
 
-
+# Modified from stackoverflow.com/questions/50677544/reflection-padding-conv2d
 class ReflectionPadding2D(Layer):
     def __init__(self, padding=(1, 1, 1, 1), **kwargs):
         self.padding = tuple(padding)
