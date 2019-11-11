@@ -1,9 +1,7 @@
-'''VGGFace models for Keras.
+'''
+From github.com/rcmalli/keras-vggface
 
-# Notes:
-- Resnet50 and VGG16  are modified architectures from Keras Application folder. [Keras](https://keras.io)
-
-- Squeeze and excitation block is taken from  [Squeeze and Excitation Networks in
+Squeeze and excitation block is taken from  [Squeeze and Excitation Networks in
  Keras](https://github.com/titu1994/keras-squeeze-excite-network) and modified.
 
 '''
@@ -25,19 +23,11 @@ from keras import layers
 import sys
 from os.path import dirname, realpath
 sys.path.append(dirname(realpath(__file__)))
+
 from antialiasing import LPFConv2D, LPFMaxPooling2D
 
 
 
-
-
-###################################################################
-#################    ##    ######  ### #    #     #################
-################# ##### ######### # ## # ###### ###################
-#################    ##    ##   # ## # #    ### ###################
-#################### ## ######### ###  # ###### ###################
-#################    ##    ###### #### #    ### ###################
-###################################################################
 
 if K.image_data_format() == 'channels_last':
     bn_axis = 3
