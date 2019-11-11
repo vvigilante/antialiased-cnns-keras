@@ -6,3 +6,4 @@ The porting of the BlurPool layer comes with an vgg-face pretrained implementati
 If you wish to add more example architectures or more pre-trained weights, you are welcome!
 
 Run antialiasing.py for testing the BlurPool layer alone.
+From senet_lpf import SENET for using the senet-lpf model.
