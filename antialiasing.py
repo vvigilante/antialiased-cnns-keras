@@ -10,6 +10,7 @@ class BlurPool(Layer):
     def __init__(self, pad_type='reflect', filt_size=3, stride=2, channels=None, pad_off=0, **kwargs):
         self.filt_size = filt_size
         self.pad_off = pad_off
+        self.pad_type = pad_type:q
         self.pad_sizes = [int(1.*(filt_size-1)/2), int(np.ceil(1.*(filt_size-1)/2))]*2
         self.pad_sizes = [pad_size+pad_off for pad_size in self.pad_sizes]
         #print(self.pad_sizes)
@@ -24,7 +25,7 @@ class BlurPool(Layer):
         super(BlurPool, self).__init__(**kwargs)
 
     def build(self, input_shape):
-        if(self.filt_size==1):
+        if(self.filt_size==1 or self.filt_size==0):
             a = np.array([1.,])
         elif(self.filt_size==2):
             a = np.array([1., 1.])
@@ -58,7 +59,7 @@ class BlurPool(Layer):
         if self.stride==1: # Even if the filter is >1, do not blur if there is no downsampling
             return inp
 
-        if(self.filt_size==1):
+        if(self.filt_size==1 or self.filt_size==0):
             if(self.pad_off==0):
                 x = inp
             else:
@@ -80,6 +81,17 @@ class BlurPool(Layer):
         s[t+2]= int(ceil(s[t+2]/self.stride))
         #print("Shape out for %s: %s" %(self.name,str(s)))
         return tuple(s)
+    
+    def get_config(self):
+        config = {
+            'pad_type': self.pad_type,
+            'filt_size': self.filt_size,
+            'stride': self.stride,
+            'channels': self.channels,
+            'pad_off': self.pad_off,
+        }
+        base_config = super(BlurPool, self).get_config()
+        return dict(list(base_config.items()) + list(config.items()))
 
 # Modified from stackoverflow.com/questions/50677544/reflection-padding-conv2d
 class ReflectionPadding2D(Layer):
